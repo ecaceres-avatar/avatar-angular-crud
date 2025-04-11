@@ -1,0 +1,71 @@
+<div class="d-flex flex-column mt-4">
+  <div class="card align-self-center w-50">
+    <h4 class="card-header text-center">Lista de usuarios</h4>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user) {
+            <tr>
+              <th scope="row">{{ user.id }}</th>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-primary me-1" (click)="editUser(user)">
+                  Editar
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="removeUser(user)">
+                  Borrar
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-center">
+      <button type="button" class="btn btn-info" (click)="addNewUser()">
+        Agregar nuevo usuario
+      </button>
+    </div>
+  </div>
+
+  @if (mode !==  ModeEnum.NON) {
+    <div class="card align-self-center w-50 mt-4">
+      <h4 class="card-header text-center">Crear/Editar Usuario</h4>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="mb-3 row">
+            <label for="firstName" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" id="firstName" placeholder="First Name" formControlName="firstName" class="form-control"
+                     [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched" />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="lastName" class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-10">
+              <input type="text" id="lastName" placeholder="Last Name" formControlName="lastName" class="form-control"
+                     [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-success me-1" (click)="saveUser()">
+          Guardar
+        </button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="cancel()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
+</div>
